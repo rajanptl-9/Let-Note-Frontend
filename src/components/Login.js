@@ -30,7 +30,7 @@ const Login = () => {
     }
 
     return (
-        <div className="container my-3" style={{ width: "500px", padding: "5vh 2vw 5vh 2vw", border: "1px solid grey", borderRadius: "1vh" }}>
+        <div className="container my-3" style={{ width: "500px", padding: "5vh 2vw 5vh 2vw", border: "1px solid #a9a9a9 ", borderRadius: "1vh", backgroundColor:"#a9a9a9", boxShadow: "0 15px 10px rgba(0, 0, 0, 0.1)", }}>
             <p className="h1 text-center">Login</p>
             <form onSubmit={loginuser}>
                 <div className="mb-3 my-3">
@@ -43,7 +43,7 @@ const Login = () => {
                     <input type="password" className="form-control" id="password" name='password' onChange={handlechange} />
                 </div>
                 <button type="submit" className="btn btn-primary">Log In</button>
-                <div id="emailHelp" className="form-text my-2">Don't have account? Create new <Link to="/signup">sign-up</Link></div>
+                <div id="emailHelp" className="form-text my-2" style={{color:"black"}}>Don't have account? Create new <Link to="/signup">sign-up</Link></div>
             </form>
         </div>
     )

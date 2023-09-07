@@ -5,16 +5,32 @@ import noteContext from '../context/noteContext'
 import { useNavigate } from 'react-router-dom'
 
 function Home() {
+
+  const [isSmallScreen, setIsSmallScreen] = useState(
+    window.matchMedia('(max-width: 768px)').matches
+  );
+
   const navigate = useNavigate();
   const [note, setNote] = useState({ id: "", updatetitle: "", updatedescription: "", updatetag: "" });
   const stt = useContext(noteContext)
   const { notes, getallnotes, editnote } = stt;
-  useEffect(() => {    
-    if(sessionStorage.getItem('authToken') !== null){
+  useEffect(() => {
+    if (sessionStorage.getItem('authToken') !== null) {
       getallnotes();
-    }else{
+    } else {
       navigate('/login');
     }
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+
+    const handleMediaChange = (event) => {
+      setIsSmallScreen(event.matches);
+    };
+
+    mediaQuery.addListener(handleMediaChange);
+
+    return () => {
+      mediaQuery.removeListener(handleMediaChange);
+    };
   }, [])
   const ref = useRef(null);
 
@@ -36,6 +52,47 @@ function Home() {
     setNote({ id: note._id, updatetitle: note.title, updatedescription: note.description, updatetag: note.tag })
   }
 
+  const stl = {
+    main_container: {
+      flexWrap: isSmallScreen ? "wrap" : "no-wrap",
+      width: "100%",
+      height: "41rem",
+      backgroundColor: "#708090"
+    },
+    show_note: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "start",
+      width: isSmallScreen ? "100%" : "50%",
+      height: isSmallScreen ? "fit-content" : "700px",
+      maxHeight: "600px"
+    },
+    show_note_title: {
+      display: "flex",
+      justifyContent: "center",
+      width: "100%",
+      padding:"10px",
+      position: "sticky",
+      top: "0",
+      backgroundColor:"rgba(146, 142, 133, 0.85)",
+      zIndex: "10"      
+    },
+    notes: {
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "space-evenly",
+      // alignItems: "flex-start",
+      width: "84%",
+      height: isSmallScreen ? "300px" : "600px",
+      border: "1px solid grey",
+      overflowY: "scroll",
+      borderRadius: "2px",
+      backgroundColor: "#928e85",
+      boxShadow: "0 15px 10px rgba(0, 0, 0, 0.1)", 
+      margin: isSmallScreen ? "10px" : "0",
+    }
+  }
 
   return (
     <>
@@ -64,25 +121,24 @@ function Home() {
               </div>
             </div>
             <div className="modal-footer">
-              <button type="button" disabled={note.updatetitle.length < 3 || note.updatedescription.length < 5 } className="btn btn-primary" data-bs-dismiss="modal" onClick={handleupdate}>Update Note</button>
+              <button type="button" disabled={note.updatetitle.length < 3 || note.updatedescription.length < 5} className="btn btn-primary" data-bs-dismiss="modal" onClick={handleupdate}>Update Note</button>
             </div>
           </div>
         </div>
       </div>
-      <main>
-        <div className='d-flex justify-content-around align-items-center' style={{ flexWrap: "wrap", width: "100%", height: "fit-contentd" }}>
+      <main style={stl.page}>
+        <div className='d-flex justify-content-around align-items-center' style={stl.main_container}>
           <Addnote />
-          <div className='d-flex justify-content-around my-1' style={{ flexWrap: "wrap", width: "50%", height: "90vh", padding: "10px" }}>
-            <div className="d-flex flex-column align-items-center justify-content-around" style={{ width: "45%", height: "fit-content" }}>
-              <div className="d-flex justify-content-center" style={{ flexWrap: "wrap", width: "100%", height: "fit-content" }}><h1>Your Notes</h1></div>              
-              <div className="d-flex justify-content-around " style={{ flexWrap: "wrap", width: "90vh", height:"80vh", border: "1px solid grey", overflowY: "scroll" }}>
-                {notes.map(element => {
-                  return (<Notetemplet key={element._id} updatenote={updatenote} note={element} />)
-                })}
-              </div>
+          <div className='my-1' style={stl.show_note}>
+            <div style={stl.notes}>
+              <div style={stl.show_note_title}><h2>Your Notes</h2></div>
+              {notes.map(element => {
+                return (<Notetemplet key={element._id} updatenote={updatenote} note={element} />)
+              })}
             </div>
           </div>
         </div>
+
       </main>
     </>
   )

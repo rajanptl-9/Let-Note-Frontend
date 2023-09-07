@@ -31,8 +31,9 @@ const Signup = () => {
         setCreds({ ...creds, [e.target.name]: e.target.value });
     }
 
+    
     return (
-        <div className="container my-3" style={{ width: "500px", padding: "5vh 2vw 5vh 2vw", border: "1px solid grey", borderRadius: "1vh" }}>
+        <div className="container my-3" style={{ width: "500px", padding: "5vh 2vw 5vh 2vw", border: "1px solid #a9a9a9 ", borderRadius: "1vh", backgroundColor:"#a9a9a9", boxShadow: "0 15px 10px rgba(0, 0, 0, 0.1)", }}>
             <p className="h1 text-center">Sign-Up</p>
             <form onSubmit={loginuser}>
                 <div className="mb-3 my-3">

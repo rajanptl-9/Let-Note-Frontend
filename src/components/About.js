@@ -1,14 +1,35 @@
 import React, { useContext } from 'react'
 
 function About() {
+  const stl = {
+    about_container : {
+      width: "100%",
+      height: "42rem",
+      backgroundColor: "#708090",
+      padding: "40px"
+    }, 
+    title: {
+      display: "flex",
+      justifyContent: "center",
+      color: "black",
+      backgroundColor: "#d3d3d3",
+      border: "1px solid #d3d3d3",
+      borderRadius: "5px",
+      marginBottom: "10px"
+    },
+    bgt : {
+      backgroundColor:"#d3d3d3",
+      borderColor: "#d3d3d3"
+    }
+  }
   return (
-    <div class="accordion" id="accordionExample">
-      <ul class="list-group container mt-5" style={{ width: "600px" }}>
-        <li class="list-group-item active" aria-current="true">About us</li>
+    <div class="accordion" id="accordionExample" style={stl.about_container}>
+      <ul class="list-group container" style={{ width: "600px" }}>
+        <li class="list-group-item active" aria-current="true" style={stl.title}>About us</li>
 
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style={stl.bgt}>
               What this app does?
             </button>
           </h2>
@@ -20,7 +41,7 @@ function About() {
         </div>
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingTwo">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style={stl.bgt}>
               Development tools used in this web-app
             </button>
           </h2>
@@ -38,7 +59,7 @@ function About() {
         </div>
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingThree">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style={stl.bgt}>
               For more information contact me!
             </button>
           </h2>
